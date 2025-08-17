@@ -19,11 +19,9 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      /* 🎨 Fundo azul degradê */
       background: linear-gradient(135deg, #4a90e2, #357ABD);
     }
 
-    /* Container central (sem alteração) */
     .container {
       position: relative;
       background: rgba(255, 255, 255, 0.9);
@@ -85,24 +83,28 @@
       box-shadow: 0 6px 15px rgba(78, 115, 223, 0.4);
     }
 
-   .link {
-  background: none;
-  border: none;
-  padding: 0;
-  margin-top: 15px;
-  font-size: 0.9em;
-  color: #357ABD;
-  text-decoration: underline;
-  cursor: pointer;
-  display: block;
+    .link {
+      background: none;
+      border: none;
+      padding: 0;
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #357ABD;
+      text-decoration: underline;
+      cursor: pointer;
+      display: block;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
 
-  /* 👇 evita copiar/selecionar no celular */
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
+    .links-container {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
     .warning {
@@ -110,6 +112,7 @@
       color: #b33;
       margin-top: 6px;
       display: none;
+      text-align: left;
     }
 
     @keyframes fadeInUp {
@@ -131,27 +134,36 @@
     <form id="signup-form">
       <input type="text" placeholder="Nome completo" required>
       <input type="email" placeholder="E-mail" required>
-      <input type="password" id="password" placeholder="Senha" required>
-      <div id="caps-warning" class="warning">⚠ Caps Lock ativado</div>
+      <input type="password" id="signup-password" placeholder="Senha" required>
+      <div id="signup-caps-warning" class="warning">⚠ Caps Lock ativado</div>
       <p style="font-size:0.85em; color:#555;">Use pelo menos 8 caracteres, incluindo números e símbolos.</p>
       <input type="password" placeholder="Confirme a senha" required>
       <button type="submit" class="btn">Cadastrar</button>
     </form>
-    <span class="link" onclick="mostrarLogin()">Já tenho conta</span>
+    <div class="links-container">
+      <span class="link" onclick="mostrarLogin()">Já tenho conta</span>
+    </div>
   </div>
 
   <script>
-    // Aviso de Caps Lock
-    const passwordInput = document.getElementById("password");
-    const capsWarning = document.getElementById("caps-warning");
+    // Função genérica para ativar aviso de Caps Lock
+    function ativarAvisoCaps(inputId, warningId) {
+      const input = document.getElementById(inputId);
+      const warning = document.getElementById(warningId);
 
-    passwordInput.addEventListener("keyup", function(event) {
-      if (event.getModifierState("CapsLock")) {
-        capsWarning.style.display = "block";
-      } else {
-        capsWarning.style.display = "none";
-      }
-    });
+      if (!input) return; // se não existir o campo, não faz nada
+
+      input.addEventListener("keyup", function(event) {
+        if (event.getModifierState("CapsLock")) {
+          warning.style.display = "block";
+        } else {
+          warning.style.display = "none";
+        }
+      });
+    }
+
+    // Ativar no campo de cadastro
+    ativarAvisoCaps("signup-password", "signup-caps-warning");
 
     // Alternar para login
     function mostrarLogin() {
@@ -160,12 +172,18 @@
         <p>Digite seus dados de acesso.</p>
         <form id="login-form">
           <input type="email" placeholder="E-mail" required>
-          <input type="password" placeholder="Senha" required>
+          <input type="password" id="login-password" placeholder="Senha" required>
+          <div id="login-caps-warning" class="warning">⚠ Caps Lock ativado</div>
           <button type="submit" class="btn">Login</button>
         </form>
-        <span class="link" onclick="mostrarCadastro()">Criar nova conta</span>
-        <span class="link">Esqueci minha senha</span>
+        <div class="links-container">
+          <span class="link" onclick="mostrarCadastro()">Criar nova conta</span>
+          <span class="link" onclick="window.location.href='recuperar.html'">Esqueci minha senha</span>
+        </div>
       `;
+
+      // Ativar no campo de login
+      ativarAvisoCaps("login-password", "login-caps-warning");
     }
 
     // Alternar para cadastro
@@ -175,4 +193,3 @@
   </script>
 </body>
 </html>
-
