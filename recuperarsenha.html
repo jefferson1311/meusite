@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Senha</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+    }
+
+    .container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeInUp 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    h1 {
+      font-size: 1.6em;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px 5px;
+      font-size: 1em;
+      font-weight: 500;
+      color: #fff;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #5aa1f3, #3c82c4);
+      box-shadow: 0 6px 15px rgba(78, 115, 223, 0.4);
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Recuperar Senha</h1>
+    <p>Digite seu e-mail cadastrado para receber um link de redefinição.</p>
+    <form id="resetForm">
+      <input type="email" id="resetEmail" placeholder="Digite seu e-mail" required>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDc2AxTbt8R_0J_oSmdxO2uR2QZqzy8NU",
+      authDomain: "saude-mental-site.firebaseapp.com",
+      projectId: "saude-mental-site",
+      storageBucket: "saude-mental-site.appspot.com",
+      messagingSenderId: "208336759956",
+      appId: "1:208336759956:web:38980ef0447aa9748c1881",
+      measurementId: "G-0F8EGME4CZ"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Enviar e-mail de redefinição
+    document.getElementById("resetForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("resetEmail").value;
+      const msg = document.getElementById("message");
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        msg.style.color = "green";
+        msg.textContent = "📩 Um e-mail de recuperação foi enviado para " + email;
+      } catch (error) {
+        msg.style.color = "red";
+        msg.textContent = "❌ Erro: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
