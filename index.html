@@ -155,11 +155,10 @@
 </head>
 <body>
   <!-- Vídeo de fundo -->
-  <video autoplay muted loop playsinline class="bg-video">
-    <!-- ⚡ Coloque aqui o seu arquivo de vídeo -->
-    <source src="v5.mp4" type="video/mp4">
-    Seu navegador não suporta vídeo em HTML5.
-  </video>
+ <video autoplay muted loop playsinline class="bg-video">
+  <source src="v5.mp4" type="video/mp4">
+  Seu navegador não suporta vídeo em HTML5.
+</video>
 
   <!-- Camada de overlay -->
   <div class="overlay"></div>
@@ -175,17 +174,14 @@
   </div>
 
   <script>
-    function irParaCliente() {
-      alert("Página do Cliente em breve.");
-      // window.location.href = "cliente.html";
-    }
+   function irParaCliente() {
+  window.location.href = "cadastro.html?tipo=cliente";
+}
 
-    function irParaProfissional() {
-      alert("Página do Profissional em breve.");
-      // window.location.href = "profissional.html";
-    }
+function irParaProfissional() {
+  window.location.href = "cadastro.html?tipo=profissional";
+}
+
   </script>
 </body>
 </html>
-
-
