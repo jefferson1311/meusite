@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apoio em Saúde Mental</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #222;
+      position: relative;
+      overflow: hidden; /* evita barra de rolagem com vídeo */
+    }
+
+    /* Vídeo de fundo */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* cobre toda tela sem distorcer */
+      z-index: -2; /* fica atrás de tudo */
+
+      opacity: 0;
+      animation: fadeInVideo 2s ease forwards;
+    }
+
+    /* Camada de overlay para contraste */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0); /* tom esverdeado leve */
+      z-index: -1;
+    }
+
+    /* Container central */
+    .container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 480px;
+      width: 90%;
+      z-index: 1;
+
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeInUp 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    h1 {
+      font-size: 1.6em;
+      margin-bottom: 25px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #333;
+
+      opacity: 0;
+      transform: translateY(-15px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    /* Botões */
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      margin: 8px;
+      font-size: 1em;
+      font-weight: 500;
+      color: #fff;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #5aa1f3, #3c82c4);
+      box-shadow: 0 6px 15px rgba(78, 115, 223, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 6px rgba(78, 115, 223, 0.2);
+    }
+
+    .btn:focus {
+      outline: 2px solid #4e73df;
+      outline-offset: 3px;
+    }
+
+    /* Animações */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInVideo {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      .container {
+        width: 95%;
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.3em;
+        line-height: 1.3;
+      }
+
+      .btn {
+        font-size: 0.95em;
+        padding: 12px 22px;
+        margin: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Vídeo de fundo -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <!-- ⚡ Coloque aqui o seu arquivo de vídeo -->
+    <source src="v3otm.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo em HTML5.
+  </video>
+
+  <!-- Camada de overlay -->
+  <div class="overlay"></div>
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <h1>
+      Encontre apoio em saúde mental <br>
+      de forma rápida e segura.
+    </h1>
+    <button class="btn" onclick="irParaCliente()">Sou Cliente</button>
+    <button class="btn" onclick="irParaProfissional()">Sou Profissional</button>
+  </div>
+
+  <script>
+    function irParaCliente() {
+      alert("Página do Cliente em breve.");
+      // window.location.href = "cliente.html";
+    }
+
+    function irParaProfissional() {
+      alert("Página do Profissional em breve.");
+      // window.location.href = "profissional.html";
+    }
+  </script>
+</body>
+</html>
